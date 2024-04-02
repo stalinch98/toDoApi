@@ -19,8 +19,8 @@ public class ToDosService {
         return toDosRepository.findAll();
     }
 
-/*    public void saveToDo(ToDoModel toDoModel) {
-        toDosRepository.save(toDoModel);
-    }*/
+    public ToDoModel saveToDo(ToDoModel toDoModel) {
+        return toDosRepository.save(toDoModel);
+    }
 
 }
