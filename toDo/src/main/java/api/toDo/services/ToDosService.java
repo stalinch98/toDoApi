@@ -26,4 +26,14 @@ public class ToDosService {
         toDosRepository.deleteById(id);
     }
 
+    public ToDoModel updateToDoById(String id, ToDoModel toDoModel) {
+        ToDoModel toDo = toDosRepository.findById(id).orElse(null);
+        if (toDo == null) {
+            return null;
+        }
+        toDo.setDescription(toDoModel.getDescription());
+        toDo.setDone(toDoModel.isDone());
+        return toDosRepository.save(toDo);
+    }
+
 }

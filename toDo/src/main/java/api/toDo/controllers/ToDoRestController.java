@@ -42,4 +42,14 @@ public class ToDoRestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ToDoModel> updateToDoById(@PathVariable("id") String id, @RequestBody ToDoModel toDoModel) {
+        try {
+            ToDoModel updatedToDo = toDosService.updateToDoById(id, toDoModel);
+            return new ResponseEntity<>(updatedToDo, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
