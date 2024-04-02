@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/toDos")
+@RequestMapping("/api/to-dos")
 public class ToDoRestController {
 
     private final ToDosService toDosService;
@@ -28,6 +28,16 @@ public class ToDoRestController {
         try {
             ToDoModel savedToDo = toDosService.saveToDo(toDoModel);
             return new ResponseEntity<>(savedToDo, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteToDoById(@PathVariable("id") String id) {
+        try {
+            toDosService.deleteToDoById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

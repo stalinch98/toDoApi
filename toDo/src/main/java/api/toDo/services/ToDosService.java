@@ -14,13 +14,16 @@ public class ToDosService {
         this.toDosRepository = toDosRepository;
     }
 
-
     public List<ToDoModel> getAllToDos() {
         return toDosRepository.findAll();
     }
 
     public ToDoModel saveToDo(ToDoModel toDoModel) {
         return toDosRepository.save(toDoModel);
+    }
+
+    public void deleteToDoById(String id) {
+        toDosRepository.deleteById(id);
     }
 
 }
