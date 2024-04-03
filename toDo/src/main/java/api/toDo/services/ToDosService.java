@@ -2,6 +2,7 @@ package api.toDo.services;
 
 import api.toDo.data.ToDosRepository;
 import api.toDo.models.ToDoModel;
+import api.toDo.models.UserModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,16 +10,23 @@ import java.util.List;
 @Service
 public class ToDosService {
     private final ToDosRepository toDosRepository;
+    private final UsersService usersService;
 
-    public ToDosService(ToDosRepository toDosRepository) {
+    public ToDosService(ToDosRepository toDosRepository, UsersService usersService) {
         this.toDosRepository = toDosRepository;
+        this.usersService = usersService;
     }
 
     public List<ToDoModel> getAllToDos() {
         return toDosRepository.findAll();
     }
 
-    public ToDoModel saveToDo(ToDoModel toDoModel) {
+    public ToDoModel saveToDo(ToDoModel toDoModel,String userId) {
+        UserModel findUser = usersService.getUserById(userId);
+        if (findUser == null) {
+            return null;
+        }
+        toDoModel.setUser(findUser);
         return toDosRepository.save(toDoModel);
     }
 
